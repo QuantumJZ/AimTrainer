@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AimTrainer.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25"
+            VerticalOptions="Center">
+            <Image
+                Source="target.png"
+                HeightRequest="185"
+                Aspect="AspectFit"
+                SemanticProperties.Description="dot net bot in a race car number eight" />
+
+            <HorizontalStackLayout
+                HorizontalOptions="Center"
+                Spacing="40">
+                <ImageButton
+                    x:Name="JumboBtn"
+                    Clicked="OnCounterClicked"
+                    WidthRequest="275"
+                    HeightRequest="150"
+                    Source="jumbotile.png"
+                    CornerRadius="10"
+                    BackgroundColor="Gray">
+                    <ImageButton.GestureRecognizers>
+                        <PointerGestureRecognizer
+                            PointerEntered="highlight"
+                            PointerExited="lowlight"/>
+                    </ImageButton.GestureRecognizers>
+                </ImageButton>
+                <ImageButton
+                    x:Name="PrecisionBtn"
+                    Clicked="OnCounterClicked"
+                    WidthRequest="275"
+                    HeightRequest="150"
+                    Source="precision.png"
+                    CornerRadius="10"
+                    BackgroundColor="Gray">
+                    <ImageButton.GestureRecognizers>
+                        <PointerGestureRecognizer
+                            PointerEntered="highlight"
+                            PointerExited="lowlight"/>
+                    </ImageButton.GestureRecognizers>
+                </ImageButton>
+                <ImageButton
+                    x:Name="MotionBtn"
+                    Clicked="OnCounterClicked"
+                    WidthRequest="275"
+                    HeightRequest="150"
+                    Source="motion.png"
+                    CornerRadius="10"
+                    BackgroundColor="Gray">
+                    <ImageButton.GestureRecognizers>
+                        <PointerGestureRecognizer
+                            PointerEntered="highlight"
+                            PointerExited="lowlight"/>
+                    </ImageButton.GestureRecognizers>
+                </ImageButton>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
