@@ -11,8 +11,7 @@
             <Image
                 Source="target.png"
                 HeightRequest="185"
-                Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a race car number eight" />
+                Aspect="AspectFit" />
 
             <HorizontalStackLayout
                 HorizontalOptions="Center"
