@@ -19,7 +19,7 @@
                 Spacing="40">
                 <ImageButton
                     x:Name="JumboBtn"
-                    Clicked="OnCounterClicked"
+                    Clicked="OpenJumbo"
                     WidthRequest="275"
                     HeightRequest="150"
                     Source="jumbotile.png"
@@ -33,7 +33,7 @@
                 </ImageButton>
                 <ImageButton
                     x:Name="PrecisionBtn"
-                    Clicked="OnCounterClicked"
+                    Clicked="OpenPrecision"
                     WidthRequest="275"
                     HeightRequest="150"
                     Source="precision.png"
@@ -47,7 +47,7 @@
                 </ImageButton>
                 <ImageButton
                     x:Name="MotionBtn"
-                    Clicked="OnCounterClicked"
+                    Clicked="OpenMotion"
                     WidthRequest="275"
                     HeightRequest="150"
                     Source="motion.png"

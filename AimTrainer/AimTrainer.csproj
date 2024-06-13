@@ -62,4 +62,28 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="MotionPage.xaml.cs">
+	    <DependentUpon>MotionPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="PrecisionPage.xaml.cs">
+	    <DependentUpon>PrecisionPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="JumboPage.xaml.cs">
+	    <DependentUpon>JumboPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="MotionPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="PrecisionPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="JumboPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

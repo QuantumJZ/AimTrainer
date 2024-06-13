@@ -2,12 +2,15 @@
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
         public MainPage()
         {
             InitializeComponent();
         }
+
+        private void OpenJumbo(object sender, EventArgs e) => Navigation.PushAsync(new JumboPage());
+        private void OpenPrecision(object sender, EventArgs e) => Navigation.PushAsync(new PrecisionPage());
+        private void OpenMotion(object sender, EventArgs e) => Navigation.PushAsync(new MotionPage());
+
 
         private void highlight(object sender, EventArgs e)
         {
@@ -19,11 +22,6 @@
         {
             ImageButton button = (ImageButton)sender;
             button.BackgroundColor = Colors.Gray;
-        }
-
-        private void OnCounterClicked(object sender, EventArgs e)
-        {
-            count++;
         }
     }
 
