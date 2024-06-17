@@ -8,7 +8,22 @@
             Padding="30,0"
             Spacing="25"
             VerticalOptions="Center">
-            
+            <Grid>
+                <ActivityIndicator
+                    x:Name="Loading"
+                    IsRunning="True"
+                    IsVisible="False"
+                    Color="LightBlue"
+                    HorizontalOptions="Center"
+                    HeightRequest="150"
+                    WidthRequest="150"/>
+                <Label
+                    x:Name="Countdown"
+                    Text="3"
+                    FontSize="100"
+                    HorizontalTextAlignment="Center"
+                    IsVisible="False"/>
+            </Grid>
         </VerticalStackLayout>
     </ScrollView>
 

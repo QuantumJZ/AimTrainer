@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Views;
+using System.Runtime.CompilerServices;
 
 namespace AimTrainer
 {
@@ -17,9 +18,24 @@ namespace AimTrainer
             await this.ShowPopupAsync(popup);
         }
 
-        private void onPopupClose()
+        private async void onPopupClose()
         {
-            // Start countdown animation
+            Loading.IsVisible = true;
+            Countdown.Text = "3";
+            Countdown.IsVisible = true;
+            await Task.Delay(1000);
+            Countdown.Text = "2";
+            await Task.Delay(1000);
+            Countdown.Text = "1";
+            await Task.Delay(1000);
+            Countdown.IsVisible = false;
+            Loading.IsVisible = false;
+            startGame();
+        }
+
+        private void startGame()
+        {
+
         }
     }
 
