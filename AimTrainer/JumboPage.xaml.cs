@@ -1,12 +1,13 @@
 ﻿
 using CommunityToolkit.Maui.Views;
-using System.Timers;
 
 namespace AimTrainer
 {
     public partial class JumboPage : ContentPage
     {
-        bool gameActive = false;
+        HashSet<(int, int)> locations = new HashSet<(int, int)>();
+        Random rand = new Random();
+        int score = 0;
         public JumboPage()
         {
             InitializeComponent();
@@ -32,12 +33,71 @@ namespace AimTrainer
             await Task.Delay(1000);
             Countdown.IsVisible = false;
             Loading.IsVisible = false;
+            countdownGrid.IsVisible = false;
+            GameGrid.IsVisible = true;
             startGame();
         }
 
         private void startGame()
         {
-            gameActive = true;
+            score = 0;
+            scoreTracker.Text = score.ToString();
+            startTimer();
+            locations.Clear();
+            locations.Add((0, 0));
+            locations.Add((0, 11));
+            for (int i = 0; i < 3; i++)
+            {
+                int x = rand.Next(0, 6);
+                int y = rand.Next(0, 12);
+                while (locations.Contains((x, y)))
+                {
+                    x = rand.Next(0, 6);
+                    y = rand.Next(0, 12);
+                }
+                locations.Add((x, y));
+                Button button = (Button)FindByName("Button" + i);
+                Grid.SetRow(button, x);
+                Grid.SetColumn(button, y);
+            }
+        }
+
+        private void buttonClick(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            score++;
+            scoreTracker.Text = score.ToString();
+            int x = Grid.GetRow(button);
+            int y = Grid.GetColumn(button);
+            locations.Remove((x, y));
+            x = rand.Next(0, 6);
+            y = rand.Next(0, 12);
+            while (locations.Contains((x, y)))
+            {
+                x = rand.Next(0, 6);
+                y = rand.Next(0, 12);
+            }
+            locations.Add((x, y));
+            Grid.SetRow(button, x);
+            Grid.SetColumn(button, y);
+        }
+
+        private async void startTimer()
+        {
+            int time = 30;
+            while (time > 0)
+            {
+                timer.Text = time.ToString();
+                await Task.Delay(1000);
+                time--;
+            }
+            endGame();
+        }
+
+        private void endGame()
+        {
+            GameGrid.IsEnabled = false;
+            
         }
     }
 

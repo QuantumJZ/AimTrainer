@@ -5,11 +5,15 @@
 
     <ScrollView>
         <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25"
-            VerticalOptions="Center">
-            <Grid>
+            Padding="0,0"
+            Spacing="0"
+            VerticalOptions="Center"
+            HorizontalOptions="Center">
+            <Grid
+                x:Name="countdownGrid">
                 <ActivityIndicator
+                    Grid.Row="1"
+                    Grid.Column="1"
                     x:Name="Loading"
                     IsRunning="True"
                     IsVisible="False"
@@ -18,11 +22,81 @@
                     HeightRequest="150"
                     WidthRequest="150"/>
                 <Label
+                    Grid.Row="1"
+                    Grid.Column="1"
                     x:Name="Countdown"
                     Text="3"
                     FontSize="100"
                     HorizontalTextAlignment="Center"
                     IsVisible="False"/>
+            </Grid>
+            <Grid
+                x:Name="GameGrid"
+                IsVisible="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150" />
+                    <RowDefinition Height="150" />
+                    <RowDefinition Height="150" />
+                    <RowDefinition Height="150" />
+                    <RowDefinition Height="150" />
+                    <RowDefinition Height="150" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    x:Name="scoreTracker"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    Text="0"
+                    FontSize="50"/>
+                <Label
+                    x:Name="timer"
+                    Grid.Row="0"
+                    Grid.Column="11"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    Text="30"
+                    FontSize="50"/>
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    x:Name="Button0"
+                    Text=""
+                    CornerRadius="0"
+                    BackgroundColor="#CC0000"
+                    Clicked="buttonClick"/>
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="11"
+                    x:Name="Button1"
+                    Text=""
+                    CornerRadius="0"
+                    BackgroundColor="#CC0000"
+                    Clicked="buttonClick"/>
+                <Button
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    x:Name="Button2"
+                    Text=""
+                    CornerRadius="0"
+                    BackgroundColor="#CC0000"
+                    Clicked="buttonClick"/>
             </Grid>
         </VerticalStackLayout>
     </ScrollView>
