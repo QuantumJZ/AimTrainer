@@ -8,6 +8,8 @@ namespace AimTrainer
         HashSet<(int, int)> locations = new HashSet<(int, int)>();
         Random rand = new Random();
         int score = 0;
+        int rowLength = 6;
+        int colLength = 12;
         public JumboPage()
         {
             InitializeComponent();
@@ -48,12 +50,12 @@ namespace AimTrainer
             locations.Add((0, 11));
             for (int i = 0; i < 3; i++)
             {
-                int x = rand.Next(0, 6);
-                int y = rand.Next(0, 12);
+                int x = rand.Next(0, rowLength);
+                int y = rand.Next(0, colLength);
                 while (locations.Contains((x, y)))
                 {
-                    x = rand.Next(0, 6);
-                    y = rand.Next(0, 12);
+                    x = rand.Next(0, rowLength);
+                    y = rand.Next(0, colLength);
                 }
                 locations.Add((x, y));
                 Button button = (Button)FindByName("Button" + i);
@@ -70,12 +72,12 @@ namespace AimTrainer
             int x = Grid.GetRow(button);
             int y = Grid.GetColumn(button);
             locations.Remove((x, y));
-            x = rand.Next(0, 6);
-            y = rand.Next(0, 12);
+            x = rand.Next(0, rowLength);
+            y = rand.Next(0, colLength);
             while (locations.Contains((x, y)))
             {
-                x = rand.Next(0, 6);
-                y = rand.Next(0, 12);
+                x = rand.Next(0, rowLength);
+                y = rand.Next(0, colLength);
             }
             locations.Add((x, y));
             Grid.SetRow(button, x);
