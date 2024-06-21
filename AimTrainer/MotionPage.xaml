@@ -8,7 +8,8 @@
             Padding="30,0"
             Spacing="25"
             VerticalOptions="Center">
-            <Grid>
+            <Grid
+                x:Name="countdownGrid">
                 <ActivityIndicator
                     x:Name="Loading"
                     IsRunning="True"
@@ -23,6 +24,82 @@
                     FontSize="100"
                     HorizontalTextAlignment="Center"
                     IsVisible="False"/>
+            </Grid>
+            <Grid
+                x:Name="StatsGrid"
+                IsVisible="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="900" />
+                    <ColumnDefinition Width="900" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    x:Name="scoreTracker"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    Padding="100, 0, 0, 0"
+                    Text="0"
+                    FontSize="50"/>
+                <Label
+                    x:Name="timer"
+                    Grid.Row="0"
+                    Grid.Column="17"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    Text="30"
+                    FontSize="50"/>
+            </Grid>
+            <Grid
+                x:Name="GameGrid"
+                IsVisible="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    x:Name="target"
+                    Text=""
+                    CornerRadius="50"
+                    WidthRequest="100"
+                    HeightRequest="100"
+                    BackgroundColor="#CC0000"
+                    Clicked="targetClicked"/>
             </Grid>
         </VerticalStackLayout>
     </ScrollView>

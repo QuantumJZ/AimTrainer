@@ -1,10 +1,16 @@
 ﻿using CommunityToolkit.Maui.Views;
-using System.Runtime.CompilerServices;
 
 namespace AimTrainer
 {
     public partial class MotionPage : ContentPage
     {
+        int rowLength = 9;
+        int colLength = 18;
+        Random rand = new Random();
+        HashSet<(int, int)> locations = new HashSet<(int, int)>();
+        int score = 0;
+        bool GameActive = false;
+        bool moving = false;
         public MotionPage()
         {
             InitializeComponent();
@@ -30,12 +36,97 @@ namespace AimTrainer
             await Task.Delay(1000);
             Countdown.IsVisible = false;
             Loading.IsVisible = false;
+            countdownGrid.IsVisible = false;
+            GameGrid.IsVisible = true;
+            StatsGrid.IsVisible = true;
+            GameActive = true;
             startGame();
         }
 
         private void startGame()
         {
+            score = 0;
+            scoreTracker.Text = score.ToString();
+            startTimer();
+            locations.Clear();
+            locations.Add((0, 0));
+            locations.Add((0, 17));
+        }
 
+        private int distance(int x, int y, int x2, int y2)
+        {
+            return (int)Math.Sqrt(Math.Pow(x - x2, 2) + Math.Pow(y - y2, 2));
+        }
+
+        private async void startTimer()
+        {
+            int time = 30;
+            while (time > 0)
+            {
+                timer.Text = time.ToString();
+                scoreTracker.Text = score.ToString();
+                await Task.Delay(1000);
+                time--;
+            }
+            scoreTracker.Text = score.ToString();
+            endGame();
+        }
+
+        private void endGame()
+        {
+            GameGrid.IsEnabled = false;
+            StatsGrid.IsEnabled = false;
+            GameActive = false;
+        }
+
+        private async void targetClicked(object sender, EventArgs e)
+        {
+            if (moving)
+            {
+                score++;
+                int x = 0, y = 0, x2 = 0, y2 = 0, flip = 0;
+                while (moving && GameActive)
+                {
+                    x = rand.Next(0, 19);
+                    y = rand.Next(0, 8);
+                    while (locations.Contains((x, y)))
+                    {
+                        x = rand.Next(1, 19);
+                        y = rand.Next(1, 8);
+                    }
+                    if (flip == 0)
+                    {
+                        x2 = rand.Next(0, 2) * 18;
+                        y2 = rand.Next(1, 8);
+                        while (locations.Contains((x2, y2)))
+                        {
+                            y2 = rand.Next(1, 8);
+                        }
+                        await target.TranslateTo(x2 * 100, y2 * 100, (uint)(distance(x, y, x2, y2) * 200));
+                        x = x2;
+                        y = y2;
+                    }
+                    else
+                    {
+                        x2 = rand.Next(1, 19);
+                        y2 = rand.Next(0, 2) * 7;
+                        while (locations.Contains((x2, y2)))
+                        {
+                            x2 = rand.Next(1, 19);
+                        }
+                        await target.TranslateTo(x2 * 100, y2 * 100, (uint)(distance(x, y, x2, y2) * 200));
+                        x = x2;
+                        y = y2;
+                    }
+                    flip = 1 - flip;
+                }
+            }
+            else
+            {
+                score++;
+            }
+            moving = !moving;
+            scoreTracker.Text = score.ToString();
         }
     }
 
