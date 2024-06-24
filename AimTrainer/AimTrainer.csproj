@@ -65,6 +65,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="EndPopup.xaml.cs">
+	    <DependentUpon>EndPopup.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="InfoPopup.xaml.cs">
 	    <DependentUpon>InfoPopup.xaml</DependentUpon>
 	  </Compile>
@@ -80,6 +83,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="EndPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="InfoPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -9,7 +9,7 @@ namespace AimTrainer
         Random rand = new Random();
         HashSet<(int, int)> locations = new HashSet<(int, int)>();
         int score = 0;
-        bool GameActive = false;
+        public bool GameActive = false;
         bool tracking = false;
         public PrecisionPage()
         {
@@ -24,9 +24,19 @@ namespace AimTrainer
             await this.ShowPopupAsync(popup);
         }
 
+        public async void DisplayEndPopup()
+        {
+            var popup = new EndPopup("Score: " + score);
+            popup.Closed += (s, e) => onPopupClose();
+            await this.ShowPopupAsync(popup);
+        }
+
         private async void onPopupClose()
         {
+            GameGrid.IsEnabled = true;
+            GameGrid.IsVisible = false;
             Loading.IsVisible = true;
+            countdownGrid.IsVisible = true;
             Countdown.Text = "3";
             Countdown.IsVisible = true;
             await Task.Delay(1000);
@@ -91,15 +101,18 @@ namespace AimTrainer
         private async void startTimer()
         {
             int time = 30;
-            while (time > 0)
+            while (time > 0 && GameActive)
             {
                 timer.Text = time.ToString();
                 scoreTracker.Text = score.ToString();
                 await Task.Delay(1000);
                 time--;
             }
-            scoreTracker.Text = score.ToString();
-            endGame();
+            if (GameActive)
+            {
+                scoreTracker.Text = score.ToString();
+                endGame();
+            }
         }
 
         private void endGame()
@@ -107,6 +120,7 @@ namespace AimTrainer
             GameGrid.IsEnabled = false;
             StatsGrid.IsEnabled = false;
             GameActive = false;
+            DisplayEndPopup();
         }
 
         private void PointerEntered(object sender, PointerEventArgs e)

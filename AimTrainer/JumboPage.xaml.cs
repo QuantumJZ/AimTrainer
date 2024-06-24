@@ -10,6 +10,7 @@ namespace AimTrainer
         int score = 0;
         int rowLength = 6;
         int colLength = 12;
+        public bool GameActive = false;
         public JumboPage()
         {
             InitializeComponent();
@@ -23,9 +24,20 @@ namespace AimTrainer
             await this.ShowPopupAsync(popup);
         }
 
+        public async void DisplayEndPopup()
+        {
+            var popup = new EndPopup("Score: " + score);
+            popup.Closed += (s, e) => onPopupClose();
+            await this.ShowPopupAsync(popup);
+        }
+
         private async void onPopupClose()
         {
+            GameActive = true;
+            GameGrid.IsEnabled = true;
+            GameGrid.IsVisible = false;
             Loading.IsVisible = true;
+            countdownGrid.IsVisible = true;
             Countdown.Text = "3";
             Countdown.IsVisible = true;
             await Task.Delay(1000);
@@ -87,19 +99,23 @@ namespace AimTrainer
         private async void startTimer()
         {
             int time = 30;
-            while (time > 0)
+            while (time > 0 && GameActive)
             {
                 timer.Text = time.ToString();
                 await Task.Delay(1000);
                 time--;
             }
-            endGame();
+            if (GameActive)
+            {
+                endGame();
+            }
         }
 
         private void endGame()
         {
+            GameActive = false;
             GameGrid.IsEnabled = false;
-            
+            DisplayEndPopup();
         }
     }
 
