@@ -11,6 +11,8 @@ namespace AimTrainer
         int score = 0;
         public bool GameActive = false;
         bool moving = false;
+        (int, int, int, int)[] moveLoc = { (0, 0, 1800, 700), (3, 0, 1800, 0), (6, 0, 1800, 100),
+        (7, 0, 1800, -300), (0, 0, 100, 700), (0, 3, 1000, 700), (0, 6, -100, 700), (0, 11, -800, 700), (0, 16, -1000, 700)};
         public MotionPage()
         {
             InitializeComponent();
@@ -35,6 +37,8 @@ namespace AimTrainer
         {
             GameGrid.IsEnabled = true;
             GameGrid.IsVisible = false;
+            StatsGrid.IsEnabled = true;
+            StatsGrid.IsVisible = false;
             Loading.IsVisible = true;
             countdownGrid.IsVisible = true;
             Countdown.Text = "3";
@@ -53,7 +57,7 @@ namespace AimTrainer
             startGame();
         }
 
-        private void startGame()
+        private async void startGame()
         {
             score = 0;
             scoreTracker.Text = score.ToString();
@@ -61,6 +65,9 @@ namespace AimTrainer
             locations.Clear();
             locations.Add((0, 0));
             locations.Add((0, 17));
+            await target.TranslateTo(0, 0, 0);
+            GameGrid.SetRow(target, rand.Next(1, rowLength) - 1);
+            GameGrid.SetColumn(target, rand.Next(colLength));
         }
 
         private int distance(int x, int y, int x2, int y2)
@@ -90,57 +97,29 @@ namespace AimTrainer
             GameGrid.IsEnabled = false;
             StatsGrid.IsEnabled = false;
             GameActive = false;
+            this.CancelAnimations();
             DisplayEndPopup();
         }
 
         private async void targetClicked(object sender, EventArgs e)
         {
+            moving = !moving;
+            score++;
+            scoreTracker.Text = score.ToString();
             if (moving)
             {
-                score++;
-                int x = 0, y = 0, x2 = 0, y2 = 0, flip = 0;
-                while (moving && GameActive)
-                {
-                    x = rand.Next(0, 19);
-                    y = rand.Next(0, 8);
-                    while (locations.Contains((x, y)))
-                    {
-                        x = rand.Next(1, 19);
-                        y = rand.Next(1, 8);
-                    }
-                    if (flip == 0)
-                    {
-                        x2 = rand.Next(0, 2) * 18;
-                        y2 = rand.Next(1, 8);
-                        while (locations.Contains((x2, y2)))
-                        {
-                            y2 = rand.Next(1, 8);
-                        }
-                        await target.TranslateTo(x2 * 100, y2 * 100, (uint)(distance(x, y, x2, y2) * 200));
-                        x = x2;
-                        y = y2;
-                    }
-                    else
-                    {
-                        x2 = rand.Next(1, 19);
-                        y2 = rand.Next(0, 2) * 7;
-                        while (locations.Contains((x2, y2)))
-                        {
-                            x2 = rand.Next(1, 19);
-                        }
-                        await target.TranslateTo(x2 * 100, y2 * 100, (uint)(distance(x, y, x2, y2) * 200));
-                        x = x2;
-                        y = y2;
-                    }
-                    flip = 1 - flip;
-                }
+                (int, int, int, int) curr = moveLoc[rand.Next(moveLoc.Length)];
+                GameGrid.SetRow(target, curr.Item1);
+                GameGrid.SetColumn(target, curr.Item2);
+                await target.TranslateTo(curr.Item3, curr.Item4, 3000);
             }
             else
             {
-                score++;
+                this.CancelAnimations();
+                await target.TranslateTo(0, 0, 0);
+                GameGrid.SetRow(target, rand.Next(1, rowLength)-1);
+                GameGrid.SetColumn(target, rand.Next(colLength));
             }
-            moving = !moving;
-            scoreTracker.Text = score.ToString();
         }
     }
 
