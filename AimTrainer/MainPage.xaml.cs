@@ -2,9 +2,9 @@
 {
     public partial class MainPage : ContentPage
     {
-        JumboPage jumbo;
-        PrecisionPage precision;
-        MotionPage motion;
+        JumboPage? jumbo;
+        PrecisionPage? precision;
+        MotionPage? motion;
         public MainPage()
         {
             InitializeComponent();
