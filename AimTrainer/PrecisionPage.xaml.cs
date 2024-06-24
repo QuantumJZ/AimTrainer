@@ -35,6 +35,8 @@ namespace AimTrainer
         {
             GameGrid.IsEnabled = true;
             GameGrid.IsVisible = false;
+            StatsGrid.IsEnabled = true;
+            StatsGrid.IsVisible = false;
             Loading.IsVisible = true;
             countdownGrid.IsVisible = true;
             Countdown.Text = "3";
@@ -120,6 +122,7 @@ namespace AimTrainer
             GameGrid.IsEnabled = false;
             StatsGrid.IsEnabled = false;
             GameActive = false;
+            this.CancelAnimations();
             DisplayEndPopup();
         }
 
