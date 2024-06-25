@@ -11,12 +11,19 @@ namespace AimTrainer
         int rowLength = 6;
         int colLength = 12;
         public bool GameActive = false;
+
+        /// <summary>
+        /// JumboPage constructor
+        /// </summary>
         public JumboPage()
         {
             InitializeComponent();
             DisplayPopup();
         }
 
+        /// <summary>
+        /// Display the information popup
+        /// </summary>
         public async void DisplayPopup()
         {
             var popup = new InfoPopup("After the 3 second countdown, click as many tiles as possible within 30 seconds.");
@@ -24,6 +31,9 @@ namespace AimTrainer
             await this.ShowPopupAsync(popup);
         }
 
+        /// <summary>
+        /// Display the results popup
+        /// </summary>
         public async void DisplayEndPopup()
         {
             var popup = new EndPopup("Score: " + score);
@@ -31,6 +41,9 @@ namespace AimTrainer
             await this.ShowPopupAsync(popup);
         }
 
+        /// <summary>
+        /// Start the game whenever a popup closes after a 3 second countdown
+        /// </summary>
         private async void onPopupClose()
         {
             GameActive = true;
@@ -52,6 +65,9 @@ namespace AimTrainer
             startGame();
         }
 
+        /// <summary>
+        /// Start the game by starting the timer and randomizing the tiles
+        /// </summary>
         private void startGame()
         {
             score = 0;
@@ -76,6 +92,11 @@ namespace AimTrainer
             }
         }
 
+        /// <summary>
+        /// Randomize the tile location for each click and update the score
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonClick(object sender, EventArgs e)
         {
             Button button = (Button)sender;
@@ -96,6 +117,9 @@ namespace AimTrainer
             Grid.SetColumn(button, y);
         }
 
+        /// <summary>
+        /// Start the timer by by decrementing the time variable very 1000ms
+        /// </summary>
         private async void startTimer()
         {
             int time = 30;
@@ -111,6 +135,9 @@ namespace AimTrainer
             }
         }
 
+        /// <summary>
+        /// End the game by setting game to inactive, disabling the game grid and showing the results popup
+        /// </summary>
         private void endGame()
         {
             GameActive = false;

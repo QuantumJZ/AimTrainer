@@ -13,12 +13,19 @@ namespace AimTrainer
         bool moving = false;
         (int, int, int, int)[] moveLoc = { (0, 0, 1800, 700), (3, 0, 1800, 0), (6, 0, 1800, 100),
         (7, 0, 1800, -300), (0, 0, 100, 700), (0, 3, 1000, 700), (0, 6, -100, 700), (0, 11, -800, 700), (0, 16, -1000, 700)};
+
+        /// <summary>
+        /// MotionPage constructor
+        /// </summary>
         public MotionPage()
         {
             InitializeComponent();
             DisplayPopup();
         }
 
+        /// <summary>
+        /// Display the information popup
+        /// </summary>
         public async void DisplayPopup()
         {
             var popup = new InfoPopup("After the 3 second countdown, click as many targets as possible in 30 seconds.");
@@ -26,6 +33,9 @@ namespace AimTrainer
             await this.ShowPopupAsync(popup);
         }
 
+        /// <summary>
+        /// Display the results popup
+        /// </summary>
         public async void DisplayEndPopup()
         {
             var popup = new EndPopup("Score: " + score);
@@ -33,6 +43,9 @@ namespace AimTrainer
             await this.ShowPopupAsync(popup);
         }
 
+        /// <summary>
+        /// Start the game whenever a popup closes after a 3 second countdown
+        /// </summary>
         private async void onPopupClose()
         {
             GameGrid.IsEnabled = true;
@@ -57,6 +70,9 @@ namespace AimTrainer
             startGame();
         }
 
+        /// <summary>
+        /// Start the game by starting the timer and randomizing the tiles
+        /// </summary>
         private async void startGame()
         {
             score = 0;
@@ -70,11 +86,9 @@ namespace AimTrainer
             GameGrid.SetColumn(target, rand.Next(colLength));
         }
 
-        private int distance(int x, int y, int x2, int y2)
-        {
-            return (int)Math.Sqrt(Math.Pow(x - x2, 2) + Math.Pow(y - y2, 2));
-        }
-
+        /// <summary>
+        /// Start the timer by by decrementing the time variable very 1000ms
+        /// </summary>
         private async void startTimer()
         {
             int time = 30;
@@ -92,6 +106,9 @@ namespace AimTrainer
             }
         }
 
+        /// <summary>
+        /// End the game by setting game to inactive, disabling the game grid, canceling animations, and showing the results popup
+        /// </summary>
         private void endGame()
         {
             GameGrid.IsEnabled = false;
@@ -101,6 +118,11 @@ namespace AimTrainer
             DisplayEndPopup();
         }
 
+        /// <summary>
+        /// Go back and forth between moving and being in a random position
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void targetClicked(object sender, EventArgs e)
         {
             moving = !moving;
