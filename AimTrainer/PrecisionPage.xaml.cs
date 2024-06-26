@@ -46,6 +46,7 @@ namespace AimTrainer
         /// </summary>
         private async void onPopupClose()
         {
+            GameActive = true;
             GameGrid.IsEnabled = true;
             GameGrid.IsVisible = false;
             StatsGrid.IsEnabled = true;
@@ -64,7 +65,6 @@ namespace AimTrainer
             countdownGrid.IsVisible = false;
             GameGrid.IsVisible = true;
             StatsGrid.IsVisible = true;
-            GameActive = true;
             startGame();
         }
 
